@@ -3,40 +3,36 @@
 {% block content %}
 <div class="row">
     <div class="col-md-8 mx-auto text-center">
-        <h1 class="display-4 mb-4">Bienvenido a GameStore 🎮</h1>
-        <p class="lead">Tu tienda online de videojuegos favorita</p>
+        <h1 class="display-4 mb-4">🎮 Bienvenido a GameStore</h1>
+        <p class="lead">Tu tienda de videojuegos favorita</p>
         
-        {% if user %}
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="card-title">¡Hola de nuevo!</h5>
-                    <p class="card-text">Estás logueado como <strong>{{ user.email }}</strong></p>
-                    <a href="{{ url_for('videojuegos') }}" class="btn btn-primary btn-lg">
-                        Ver Catálogo de Videojuegos
-                    </a>
+        {% if not session.user_email %}
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Ya tienes cuenta?</h5>
+                        <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar Sesión</a>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Nuevo aquí?</h5>
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Registrarse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% else %}
-            <div class="row mt-5">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">¿Ya tienes cuenta?</h5>
-                            <p class="card-text">Inicia sesión para acceder a nuestro catálogo</p>
-                            <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar Sesión</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">¿Nuevo aquí?</h5>
-                            <p class="card-text">Regístrate para empezar a comprar</p>
-                            <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Registrarse</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">¡Hola de nuevo!</h5>
+                <p>Estás logueado como <strong>{{ session.user_email }}</strong></p>
+                <a href="{{ url_for('videojuegos') }}" class="btn btn-primary btn-lg">Ver Videojuegos</a>
             </div>
+        </div>
         {% endif %}
     </div>
 </div>
